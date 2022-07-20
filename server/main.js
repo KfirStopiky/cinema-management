@@ -11,10 +11,13 @@ app.use(express.json());
 app.use("/api/movies", moviesRoute);
 
 app.get("/", async (req, res) => {
-  //   let movies = await moviesBL.loadMoviesToDB();
-  //     res.json(movies);
-  //   let members = await membersBL.loadMembersToDB();
-  res.json("hello world");
+  try {
+    // let movies = await moviesBL.loadMoviesToDB();
+    // let members = await membersBL.loadMembersToDB();
+    res.json("hello world");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(5000);

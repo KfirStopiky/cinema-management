@@ -6,24 +6,20 @@ const loadMoviesToDB = () => {
     // Get all movies from WS
     let allMoviesData = await moviesDAL.getMovies();
     let movies = allMoviesData.data;
-    let moviesShorstArr = movies.splice(1, 2);
 
-    console.log(moviesShorstArr[0].genres);
-
-    // Insert movies to DB
-    moviesShorstArr.forEach((m) => {
+    movies.map((movie) => {
       let movieObj = movieSchema({
-        Id: m.id,
-        Name: m.name,
-        Genres: m.genres,
-        Image: m.image.original,
-        Premiered: m.premiered,
+        Id: movie.id,
+        Name: movie.name,
+        Genres: movie.genres,
+        Image: movie.image.original,
+        Premiered: movie.premiered,
       });
       movieObj.save((err) => {
         if (err) {
           reject(err);
         } else {
-          resolve("succsess");
+          resolve(movieObj);
         }
       });
     });

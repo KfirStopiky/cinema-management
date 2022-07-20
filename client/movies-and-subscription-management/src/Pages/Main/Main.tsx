@@ -1,8 +1,16 @@
-import React from 'react'
-const Main:React.FC = () => {
+import React from "react";
+import Login from "../Login/Login";
+import { Routes, Route } from "react-router-dom";
+import Register from "../Register/Register";
+const Main: React.FC = () => {
   return (
-    <div>Main</div>
-  )
-}
+    <div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </div>
+  );
+};
 
-export default Main
+export default Main;
