@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./login.scss";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let data = await axios.post(`http://localhost:5000/api/auth/register`, {
+      userName,
+      password,
+    });
+    console.log(data);
   };
   return (
     <div className="container">
