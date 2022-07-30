@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const registerBL = require("../BLs/registerBL");
+const authBL = require("../BLs/authBL");
 
-
+router.post("/", async (req, res) => {
+  const { name, userName, password } = req.body;
+  let resp = await authBL.registerUser(name, userName, password);
+  res.send(resp);
+});
 
 module.exports = router;

@@ -27,6 +27,14 @@ app.get("/", async (req, res) => {
     console.log(error);
   }
 });
-
+app.get("/api/auth/register", async (req, res) => {
+  try {
+    // let movies = await moviesBL.loadMoviesToDB();
+    // let members = await membersBL.loadMembersToDB();
+    res.json("hello world");
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.listen(5000);

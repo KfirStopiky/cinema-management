@@ -1,15 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const loginBL = require("../BLs/loginBL");
+const authBL = require("../BLs/authBL");
 
-router.get("/", (req, res) => {
-  res.json("hey");
+router.post("/", async (req, res) => {
+  const { userName, password } = req.body;
+  let resp = await authBL.login(req, userName, password);
+  res.send(resp);
 });
-
-// router.post("/", async (req, res) => {
-//   let resp = loginBL.login();
-//   console.log(resp);
-//   res.json(resp);
-// });
 
 module.exports = router;

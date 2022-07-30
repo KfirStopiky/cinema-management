@@ -1,8 +1,8 @@
 import React from 'react'
-const Main:React.FC = () => {
+const Name:React.FC = () => {
   return (
     <div>Main</div>
   )
 }
 
-export default Main
+export default Name;

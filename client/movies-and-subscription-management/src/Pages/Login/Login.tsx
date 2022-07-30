@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
+import { login, saveToken } from "../../Services/AuthService";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let data = await axios.post(`http://localhost:5000/api/auth/register`, {
-      userName,
-      password,
-    });
-    console.log(data);
+    let resp = await login(userName, password);
+    if (resp.data.error === false) {
+      let token: String = resp.data.access_token;
+      saveToken(token);
+      navigate("/home");
+    } else {
+      alert(resp.data.message);
+    }
   };
   return (
     <div className="container">
@@ -25,7 +30,7 @@ const Login: React.FC = () => {
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
           ) => setUserName(e.target.value)}
           id="outlined-basic"
-          label="Outlined"
+          label="Username"
           variant="outlined"
         />
         <TextField
@@ -33,7 +38,7 @@ const Login: React.FC = () => {
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
           ) => setPassword(e.target.value)}
           id="outlined-basic"
-          label="Outlined"
+          label="Password"
           variant="outlined"
         />{" "}
         <br />
