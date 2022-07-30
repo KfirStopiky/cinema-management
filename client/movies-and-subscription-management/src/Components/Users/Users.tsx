@@ -1,10 +1,34 @@
-import React, { useState } from 'react'
-import './users.scss'
-const Users:React.FC = () => {
-    const [users,setUsers] = useState([])
-  return (
-    <div><h1>Users</h1></div>
-  )
-}
+import React, { useEffect, useState } from "react";
+import "./users.scss";
+import { getAllItems } from "../../Services/requests";
+import User from "../User/User";
+import { UserType } from "../../Types/user";
 
-export default Users
+const Users: React.FC = () => {
+  const [users, setUsers] = useState<[UserType] | null | undefined>();
+
+  const getUsers = async () => {
+    let resp = await getAllItems("http://localhost:5000/api/users");
+    let users: [UserType] = resp.data.allUsers;
+    setUsers(users);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+  return (
+    <>
+      <h1>Users</h1>
+      <div className="btns">
+        <button>All Users</button>
+        <button>Add User</button>
+      </div>
+      {users &&
+        users.map((user: UserType, i: number) => {
+          return <User key={i} user={user} />;
+        })}
+    </>
+  );
+};
+
+export default Users;
