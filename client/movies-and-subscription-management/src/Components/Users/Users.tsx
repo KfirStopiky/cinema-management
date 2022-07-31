@@ -19,13 +19,10 @@ const Users: React.FC = () => {
   return (
     <>
       <h1>Users</h1>
-      <div className="btns">
-        <button>All Users</button>
-        <button>Add User</button>
-      </div>
+
       {users &&
         users.map((user: UserType, i: number) => {
-          return <User key={i} user={user} />;
+          return <User key={i} user={user} getUsers={getUsers} />;
         })}
     </>
   );

@@ -1,9 +1,9 @@
 export type UserType = {
-  id: String;
-  name: String;
-  permissions: [];
-  userName: String;
-  password: String;
-  sessionTimeOut: String;
-  updatedAt: String;
+  _id: string;
+  name: string;
+  permissions?: any;
+  userName: string;
+  password: string;
+  sessionTimeOut: string;
+  updatedAt: string;
 };

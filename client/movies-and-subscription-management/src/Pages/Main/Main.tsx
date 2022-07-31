@@ -15,6 +15,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Movies from "../../Components/Movies/Movies";
 import Subscriptions from "../../Components/Subscriptions/Subscriptions";
+// import AddUser from "../Add user page/AddUser";
+import Users from "../../Components/Users/Users";
+import MoviesPage from "../Movies page/MoviesPage";
+import AddMoviePage from "../Add movie page/AddMoviePage";
 
 const Main: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +28,7 @@ const Main: React.FC = () => {
     if (token === null) {
       navigate("/");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -73,16 +77,32 @@ const Main: React.FC = () => {
             >
               Users Management
             </Typography>
-            <Button color="inherit">Log Out</Button>
+            <Button
+              onClick={() => {
+                localStorage.clear();
+              }}
+              color="inherit"
+            >
+              Log Out
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>
       <Routes>
-        <Route path="/" element={localStorage.getItem('token')? <Home />: <Login />} />
+        <Route
+          path="/"
+          element={localStorage.getItem("token") ? <Home /> : <Login />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/manage-users" element={<UserManagement />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/manage-users" element={<UserManagement />}>
+          <Route path="" element={<Users />} />
+          {/* <Route  path="add" element={<AddUser />} /> */}
+        </Route>
+        <Route path="/movies" element={<MoviesPage />}>
+          <Route path="" element={<Movies />} />
+          <Route path="add" element={<AddMoviePage />} />
+        </Route>
         <Route path="/subscriptions" element={<Subscriptions />} />
       </Routes>
     </>

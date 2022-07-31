@@ -7,4 +7,15 @@ router.get("/", async (req, res, next) => {
   res.send(resp);
 });
 
+router.delete("/", async (req, res, next) => {
+  const {id} = req.body
+  let resp = await usersBL.deleteUser(id);
+  res.send(resp);
+});
+router.post("/", async (req, res, next) => {
+  const {id} = req.body
+  let resp = await usersBL.deleteUser(id);
+  res.send(resp);
+});
+
 module.exports = router;
