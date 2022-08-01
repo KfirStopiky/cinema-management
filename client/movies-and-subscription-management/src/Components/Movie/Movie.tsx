@@ -1,7 +1,17 @@
 import React from "react";
-import './movie.scss'
+import "./movie.scss";
 
-const Movie: React.FC = () => {
+interface IProps {
+  movie: {
+    _id: string;
+    name: string;
+    genres: [string];
+    image: string;
+    premiered: string;
+  };
+}
+
+const Movie: React.FC<IProps> = () => {
   return <div>Movie</div>;
 };
 

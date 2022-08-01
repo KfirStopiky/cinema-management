@@ -18,9 +18,9 @@ const Movies: React.FC = () => {
   return (
     <>
       <h1>Movies</h1>
-      {movies.map((movie, i: number) => {
+      {/* {movies.map((movie, i: number) => {
         return <Movie key={i} movie={movie} />;
-      })}
+      })} */}
     </>
   );
 };

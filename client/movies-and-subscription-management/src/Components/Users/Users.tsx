@@ -22,7 +22,19 @@ const Users: React.FC = () => {
 
       {users &&
         users.map((user: UserType, i: number) => {
-          return <User key={i} user={user} getUsers={getUsers} />;
+          return (
+            <User
+              key={i}
+              user={user}
+              viewSubscriptions={user.permissions.viewSubscriptions}
+              createSubscriptions={user.permissions.createSubscriptions}
+              deleteSubscriptions={user.permissions.deleteSubscriptions}
+              viewMovies={user.permissions.viewMovies}
+              createMovies={user.permissions.createMovies}
+              deleteMovies={user.permissions.deleteMovies}
+              getUsers={getUsers}
+            />
+          );
         })}
     </>
   );
