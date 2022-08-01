@@ -26,12 +26,7 @@ const Users: React.FC = () => {
             <User
               key={i}
               user={user}
-              viewSubscriptions={user.permissions.viewSubscriptions}
-              createSubscriptions={user.permissions.createSubscriptions}
-              deleteSubscriptions={user.permissions.deleteSubscriptions}
-              viewMovies={user.permissions.viewMovies}
-              createMovies={user.permissions.createMovies}
-              deleteMovies={user.permissions.deleteMovies}
+              permissions={user.permissions}
               getUsers={getUsers}
             />
           );

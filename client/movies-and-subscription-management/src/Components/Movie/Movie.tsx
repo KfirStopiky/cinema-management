@@ -11,8 +11,11 @@ interface IProps {
   };
 }
 
-const Movie: React.FC<IProps> = () => {
-  return <div>Movie</div>;
+const Movie: React.FC<IProps> = ({ movie }) => {
+  console.log(movie);
+  return <div className="container">
+    
+  </div>;
 };
 
 export default Movie;

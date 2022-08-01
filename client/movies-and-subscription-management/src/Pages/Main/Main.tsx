@@ -19,6 +19,7 @@ import Subscriptions from "../../Components/Subscriptions/Subscriptions";
 import Users from "../../Components/Users/Users";
 import MoviesPage from "../Movies page/MoviesPage";
 import AddMoviePage from "../Add movie page/AddMoviePage";
+import EditUserPage from "../Edit user page/EditUserPage";
 
 const Main: React.FC = () => {
   const navigate = useNavigate();
@@ -99,6 +100,7 @@ const Main: React.FC = () => {
           <Route path="" element={<Users />} />
           {/* <Route  path="add" element={<AddUser />} /> */}
         </Route>
+        <Route path="/manage-users/:id" element={<EditUserPage />} />
         <Route path="/movies" element={<MoviesPage />}>
           <Route path="" element={<Movies />} />
           <Route path="add" element={<AddMoviePage />} />

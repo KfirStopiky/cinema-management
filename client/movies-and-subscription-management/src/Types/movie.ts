@@ -1,4 +1,4 @@
-export type UserType = {
+export type MovieType = {
   _id: string;
   name: string;
   genres: [string];
