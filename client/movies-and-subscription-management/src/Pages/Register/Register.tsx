@@ -7,13 +7,14 @@ import { register } from "../../Services/AuthService";
 const Register: React.FC = () => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let resp = await register(name, userName, password);
+    let resp = await register(firstName, lastName, userName, password);
     if (resp.data.error === false) {
       navigate("/");
     } else {
@@ -28,11 +29,30 @@ const Register: React.FC = () => {
         <TextField
           onChange={(
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+          ) => setFirstName(e.target.value)}
+          id="firstName"
+          label="First name"
+          variant="outlined"
+        />{" "}
+        <br />
+        <TextField
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+          ) => setLastName(e.target.value)}
+          id="lastName"
+          label="Last name"
+          variant="outlined"
+        />{" "}
+        <br />
+        <TextField
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
           ) => setUserName(e.target.value)}
           id="Username"
           label="Username"
           variant="outlined"
-        />
+        />{" "}
+        <br />
         <TextField
           onChange={(
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,14 +62,6 @@ const Register: React.FC = () => {
           variant="outlined"
         />{" "}
         <br />
-        <TextField
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-          ) => setName(e.target.value)}
-          id="Name"
-          label="Name"
-          variant="outlined"
-        />{" "}
         <button type="submit">Sign Up!</button>
       </form>
       <div className="new-user">

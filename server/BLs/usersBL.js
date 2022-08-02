@@ -12,6 +12,29 @@ const getAllUsers = () => {
   });
 };
 
+const getUser = (id) => {
+  console.log(id)
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await usersSchema.findById(id);
+      resolve({ error: false, user });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+// const editUser = (id,obj) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       let user = await usersSchema.findByIdAndUpdate(id,);
+//       resolve({ error: false, user });
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };
+
 const deleteUser = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -48,4 +71,4 @@ const addUser = (obj) => {
   });
 };
 
-module.exports = { getAllUsers, deleteUser };
+module.exports = { getAllUsers, deleteUser, getUser };

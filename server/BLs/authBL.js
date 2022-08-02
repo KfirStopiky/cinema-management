@@ -7,7 +7,7 @@ require("dotenv").config();
 let SECRET = "fsdkfhwfhi2hr209239103i131jdjcsdccbd";
 const JWT_SECRET = process.env.SECRET;
 
-const registerUser = async (name, userName, password) => {
+const registerUser = async (firstName, lastName, userName, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       const existUser = await usersSchema.find({ userName });
@@ -19,7 +19,8 @@ const registerUser = async (name, userName, password) => {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       let newUser = await new usersSchema({
-        name,
+        firstName,
+        lastName,
         userName,
         password: hashedPassword,
       }).save();
