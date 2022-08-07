@@ -13,34 +13,46 @@ const getAllUsers = () => {
 };
 
 const getUser = (id) => {
-  console.log(id)
   return new Promise(async (resolve, reject) => {
     try {
       let user = await usersSchema.findById(id);
       resolve({ error: false, user });
-    } catch (error) {
-      reject(error);
+    } catch (err) {
+      reject({ error: true, message: err });
     }
   });
 };
 
-// const editUser = (id,obj) => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       let user = await usersSchema.findByIdAndUpdate(id,);
-//       resolve({ error: false, user });
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
-// };
+const editUser = (_id, firstName, lastName, sessionTimeOut, userName) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await usersSchema.findByIdAndUpdate(
+        _id,
+        {
+          $set: {
+            firstName,
+            lastName,
+            userName,
+            sessionTimeOut,
+          },
+        },
+        { new: true }
+      );
+      resolve({
+        error: false,
+        message: "User has been edited successfully!",
+        user,
+      });
+    } catch (err) {
+      reject({ error: true, message: err });
+    }
+  });
+};
 
 const deleteUser = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(id);
       let resp = await usersSchema.findByIdAndDelete(id);
-      console.log(resp);
       resolve({ error: false, message: "User has been deleted successfully" });
     } catch (error) {
       reject(error);
@@ -71,4 +83,4 @@ const addUser = (obj) => {
   });
 };
 
-module.exports = { getAllUsers, deleteUser, getUser };
+module.exports = { getAllUsers, deleteUser, getUser, editUser };

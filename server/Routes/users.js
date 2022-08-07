@@ -9,11 +9,17 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   let resp = await usersBL.getUser(id);
-  console.log(resp);
   res.send(resp);
 });
 router.put("/:id", async (req, res, next) => {
-  let resp = await usersBL.getAllUsers();
+  const { _id,firstName, lastName, sessionTimeOut, userName } = req.body.user;
+  let resp = await usersBL.editUser(
+    _id,
+    firstName,
+    lastName,
+    sessionTimeOut,
+    userName
+  );
   res.send(resp);
 });
 

@@ -10,19 +10,28 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormGroup } from "@mui/material";
+import { updateItem } from "../../Services/requests";
 
 interface IProps {
   open: boolean;
   selectedUserDeatils: any;
+  setTelectedUserDeatils: React.Dispatch<React.SetStateAction<{}>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose: () => void;
 }
 
-const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
-  // const handleEdit = async (id: string) => {
-  //   let resp = await getItemById(`http://localhost:5000/api/users`, id);
-  //   setOpen(false);
-  // };
+const EditUser: React.FC<IProps> = ({
+  open,
+  setOpen,
+  selectedUserDeatils,
+  setTelectedUserDeatils,
+}) => {
+  const handleEdit = async (id: string, userObj: object) => {
+    let resp = await updateItem(`http://localhost:5000/api/users`, id, userObj);
+    if (resp.data.error === true) alert(resp.data.message);
+    alert(resp.data.message);
+    setOpen(false);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -35,6 +44,14 @@ const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
         <DialogContent>
           <DialogContentText>Edit user</DialogContentText>
           <TextField
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ) =>
+              setTelectedUserDeatils({
+                ...selectedUserDeatils,
+                firstName: e.target.value,
+              })
+            }
             defaultValue={selectedUserDeatils.firstName}
             autoFocus
             margin="dense"
@@ -45,6 +62,14 @@ const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
             variant="standard"
           />
           <TextField
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ) =>
+              setTelectedUserDeatils({
+                ...selectedUserDeatils,
+                lastName: e.target.value,
+              })
+            }
             defaultValue={selectedUserDeatils.lastName}
             autoFocus
             margin="dense"
@@ -55,6 +80,14 @@ const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
             variant="standard"
           />
           <TextField
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ) =>
+              setTelectedUserDeatils({
+                ...selectedUserDeatils,
+                userName: e.target.value,
+              })
+            }
             defaultValue={selectedUserDeatils.userName}
             autoFocus
             margin="dense"
@@ -65,6 +98,14 @@ const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
             variant="standard"
           />
           <TextField
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ) =>
+              setTelectedUserDeatils({
+                ...selectedUserDeatils,
+                sessionTimeOut: e.target.value,
+              })
+            }
             defaultValue={selectedUserDeatils.sessionTimeOut}
             autoFocus
             margin="dense"
@@ -168,7 +209,13 @@ const EditUser: React.FC<IProps> = ({ open, setOpen, selectedUserDeatils }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() =>
+              handleEdit(selectedUserDeatils._id, { user: selectedUserDeatils })
+            }
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

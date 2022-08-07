@@ -71,6 +71,7 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
                 setOpen={setOpen}
                 handleClose={handleClose}
                 selectedUserDeatils={selectedUserDeatils}
+                setTelectedUserDeatils={setTelectedUserDeatils}
               />
             )}
           </div>

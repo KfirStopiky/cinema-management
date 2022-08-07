@@ -15,7 +15,7 @@ const Users: React.FC = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [users]);
   return (
     <>
       <h1>Users</h1>
