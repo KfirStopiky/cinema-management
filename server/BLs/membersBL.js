@@ -7,7 +7,9 @@ const loadMembersToDB = () => {
     let membersFullData = await membersDAL.getMembers();
     let members = membersFullData.data;
 
-    let memberObj = {};
+    let memberObj = {
+      
+    };
     // Insert members to DB
     members.forEach((m) => {
       memberObj = memberSchema({
