@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import "./editMovie.scss";
+import React from "react";
+import "./editMember.scss";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,34 +11,26 @@ import { updateItem } from "../../Services/requests";
 
 interface IProps {
   open: boolean;
-  selectedMovieDetails: any;
-  setSelectedMovieDetails: React.Dispatch<React.SetStateAction<{}>>;
+  selectedMemberDetails: any;
+  setSelectedMemberDetails: React.Dispatch<React.SetStateAction<{}>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose: () => void;
 }
 
-const EditMovie: React.FC<IProps> = ({
+const EditMember: React.FC<IProps> = ({
   open,
   setOpen,
-  selectedMovieDetails,
-  setSelectedMovieDetails,
+  selectedMemberDetails,
+  setSelectedMemberDetails,
 }) => {
   const handleEdit = async (id: string, movieObj: object) => {
-    await updateItem(`http://localhost:5000/api/movies`, id, movieObj);
+    await updateItem(`http://localhost:5000/api/members`, id, movieObj);
     setOpen(false);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  let genresArr: string[] = [];
-
-  useEffect(() => {
-    selectedMovieDetails.Genres.map((genre: string) => {
-      return genresArr.push(genre);
-    });
-  }, []);
 
   return (
     <div>
@@ -50,12 +42,12 @@ const EditMovie: React.FC<IProps> = ({
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
             ) =>
-              setSelectedMovieDetails({
-                ...selectedMovieDetails,
+              setSelectedMemberDetails({
+                ...selectedMemberDetails,
                 Name: e.target.value,
               })
             }
-            defaultValue={selectedMovieDetails.Name}
+            defaultValue={selectedMemberDetails.Name}
             autoFocus
             margin="dense"
             id="Name"
@@ -67,18 +59,18 @@ const EditMovie: React.FC<IProps> = ({
           <TextField
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => {
-              setSelectedMovieDetails({
-                ...selectedMovieDetails,
-                Geners: e.target.value,
-              });
-            }}
-            defaultValue={genresArr}
+            ) =>
+              setSelectedMemberDetails({
+                ...selectedMemberDetails,
+                Email: e.target.value,
+              })
+            }
+            defaultValue={selectedMemberDetails.Email}
             autoFocus
             margin="dense"
-            id="Geners"
-            label="Geners"
-            type="text"
+            id="Email"
+            label="Email"
+            type="email"
             fullWidth
             variant="standard"
           />
@@ -86,35 +78,17 @@ const EditMovie: React.FC<IProps> = ({
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
             ) =>
-              setSelectedMovieDetails({
-                ...selectedMovieDetails,
-                Image: e.target.value,
+              setSelectedMemberDetails({
+                ...selectedMemberDetails,
+                City: e.target.value,
               })
             }
-            defaultValue={selectedMovieDetails.Image}
+            defaultValue={selectedMemberDetails.City}
             autoFocus
             margin="dense"
-            id="Image"
-            label="Image URL"
+            id="City"
+            label="City"
             type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) =>
-              setSelectedMovieDetails({
-                ...selectedMovieDetails,
-                Premiered: e.target.value,
-              })
-            }
-            defaultValue={selectedMovieDetails.Premiered}
-            autoFocus
-            margin="dense"
-            id="Premiered"
-            label="Premiered"
-            type="date"
             fullWidth
             variant="standard"
           />
@@ -123,8 +97,8 @@ const EditMovie: React.FC<IProps> = ({
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() =>
-              handleEdit(selectedMovieDetails._id, {
-                movie: selectedMovieDetails,
+              handleEdit(selectedMemberDetails._id, {
+                member: selectedMemberDetails,
               })
             }
           >
@@ -136,4 +110,4 @@ const EditMovie: React.FC<IProps> = ({
   );
 };
 
-export default EditMovie;
+export default EditMember;

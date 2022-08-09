@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getToken } from "../../Services/AuthService";
-import { useNavigate } from "react-router-dom";
-import TextField from "@mui/material/TextField";
 import { addItem } from "../../Services/requests";
-import "./addMoviePage.scss";
+import TextField from "@mui/material/TextField";
 
-const AddMoviePage: React.FC = () => {
+const AddMemberPage: React.FC = () => {
   const navigate = useNavigate();
-  const [movieDetails, setMovieDetails] = useState<{
+
+  const [memberDetails, setMemberDetails] = useState<{
     name: string;
-    imageUrl: string;
-    premiered: string;
-    genres?: string | [];
+    email: string;
+    city: string;
   }>({
     name: "",
-    imageUrl: "",
-    premiered: "",
-    genres: [],
+    email: "",
+    city: "",
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let resp = await addItem("http://localhost:5000/api/movies", movieDetails);
-    console.log(movieDetails);
+    let resp = await addItem(
+      "http://localhost:5000/api/members",
+      memberDetails
+    );
+    console.log(memberDetails);
     if (resp.data.error === false) {
-      navigate("/movies");
+      navigate("/members");
     } else {
       alert(resp.data.message);
     }
@@ -45,7 +46,7 @@ const AddMoviePage: React.FC = () => {
           <TextField
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, name: e.target.value })}
+            ) => setMemberDetails({ ...memberDetails, name: e.target.value })}
             id="name"
             label="name"
             variant="outlined"
@@ -53,29 +54,18 @@ const AddMoviePage: React.FC = () => {
           <TextField
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, genres: e.target.value })}
-            id="genres"
-            label="genres"
+            ) => setMemberDetails({ ...memberDetails, email: e.target.value })}
+            id="email"
+            label="email"
             variant="outlined"
           />{" "}
           <br />
           <TextField
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, imageUrl: e.target.value })}
-            id="imageUrl"
-            label="imageUrl"
-            variant="outlined"
-          />{" "}
-          <br />
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) =>
-              setMovieDetails({ ...movieDetails, premiered: e.target.value })
-            }
-            id="premiered"
-            label="premiered"
+            ) => setMemberDetails({ ...memberDetails, city: e.target.value })}
+            id="city"
+            label="city"
             variant="outlined"
           />{" "}
           <br />
@@ -94,4 +84,4 @@ const AddMoviePage: React.FC = () => {
   );
 };
 
-export default AddMoviePage;
+export default AddMemberPage;

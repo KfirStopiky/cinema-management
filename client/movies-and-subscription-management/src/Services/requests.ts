@@ -18,7 +18,7 @@ export const deleteItem = (url: string, id: string) => {
 };
 
 export const addItem = (url: string, obj: any) => {
-  return axios.delete(url, obj);
+  return axios.post(url, obj);
 };
 export const updateItem = (url: string, id: string, userObj: any) => {
   return axios.put(`${url}/${id}`, userObj);

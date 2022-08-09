@@ -52,6 +52,22 @@ const getMovie = (id) => {
   });
 };
 
+const addMovie = (Name, Image, Premiered, Genres) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let newMovie = await new movieSchema({
+        Name,
+        Image,
+        Premiered,
+        Genres,
+      }).save();
+      return resolve({ error: false, newMovie });
+    } catch (err) {
+      reject({ error: true, message: err });
+    }
+  });
+};
+
 const deleteMovie = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -67,7 +83,6 @@ const deleteMovie = (id) => {
 };
 
 const editMovie = (_id, Name, Genres, Image, Premiered) => {
-  console.log(_id, Name, Genres, Image, Premiered);
   return new Promise(async (resolve, reject) => {
     try {
       let movie = await movieSchema.findByIdAndUpdate(
@@ -85,7 +100,7 @@ const editMovie = (_id, Name, Genres, Image, Premiered) => {
       resolve({
         error: false,
         message: "Movie has been edited successfully!",
-        user,
+        movie,
       });
     } catch (err) {
       reject({ error: true, message: err });
@@ -99,4 +114,5 @@ module.exports = {
   deleteMovie,
   editMovie,
   getMovie,
+  addMovie,
 };

@@ -14,12 +14,13 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Movies from "../../Components/Movies/Movies";
-import Subscriptions from "../../Components/Subscriptions/Subscriptions";
-// import AddUser from "../Add user page/AddUser";
 import Users from "../../Components/Users/Users";
 import MoviesPage from "../Movies page/MoviesPage";
 import AddMoviePage from "../Add movie page/AddMoviePage";
 import EditUserPage from "../Edit user page/EditUserPage";
+import SubscriptionPage from "../Subscriptions page/SubscriptionPage";
+import Members from "../../Components/Members/Members";
+import AddMemberPage from "../Add member/AddMemberPage";
 
 const Main: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const Main: React.FC = () => {
               Movies
             </Typography>
             <Typography
-              onClick={() => navigate("/subscriptions")}
+              onClick={() => navigate("/members")}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
@@ -105,7 +106,10 @@ const Main: React.FC = () => {
           <Route path="" element={<Movies />} />
           <Route path="add" element={<AddMoviePage />} />
         </Route>
-        <Route path="/subscriptions" element={<Subscriptions />} />
+        <Route path="/members" element={<SubscriptionPage />}>
+          <Route path="" element={<Members />} />
+          <Route path="add" element={<AddMemberPage />} />
+        </Route>
       </Routes>
     </>
   );

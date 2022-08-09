@@ -22,8 +22,8 @@ const Movies: React.FC = () => {
       navigate("/");
     }
     getMovies();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movies]);
 
   return (
     <>
