@@ -3,6 +3,8 @@ import "./movie.scss";
 import Button from "@mui/material/Button";
 import { deleteItem, getItemById } from "../../Services/requests";
 import EditMovie from "../Edit movie/EditMovie";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Redux/userSlice";
 
 interface IProps {
   movie: {
@@ -16,6 +18,7 @@ interface IProps {
 }
 
 const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
+  const user = useSelector(selectUser);
   const [open, setOpen] = React.useState(false);
   const [selectedMovieDetails, setSelectedMovieDetails] = React.useState({});
 
@@ -47,9 +50,13 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
         <img className="image" src={movie.Image} alt="" /> <br />
         <div className="btns">
           <div>
-            <Button variant="outlined" onClick={() => editMovie(movie._id)}>
-              Edit
-            </Button>
+            {user && user.permissions.updateMovie ? (
+              <Button variant="outlined" onClick={() => editMovie(movie._id)}>
+                Edit
+              </Button>
+            ) : (
+              ""
+            )}
             {open && (
               <EditMovie
                 open={open}
@@ -59,9 +66,13 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
                 setSelectedMovieDetails={setSelectedMovieDetails}
               />
             )}
-            <Button onClick={deleteMovie} variant="outlined">
-              Delete
-            </Button>
+            {user && user.permissions.deleteMovies ? (
+              <Button onClick={deleteMovie} variant="outlined">
+                Delete
+              </Button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

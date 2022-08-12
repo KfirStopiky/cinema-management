@@ -7,7 +7,7 @@ const MoviesPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Movies</h1>
+      <h1>Moviesaaaa</h1>
       <div className="btns">
         <button onClick={() => navigate("/movies")}>All Movies</button>
         <button onClick={() => navigate("/movies/add")}>Add Movie</button>

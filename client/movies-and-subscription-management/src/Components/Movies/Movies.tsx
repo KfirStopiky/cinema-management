@@ -3,12 +3,8 @@ import "./movies.scss";
 import { getAllItems } from "../../Services/requests";
 import Movie from "../Movie/Movie";
 import { MovieType } from "../../Types/movie";
-import { getToken } from "../../Services/AuthService";
-import { useNavigate } from "react-router";
 
 const Movies: React.FC = () => {
-  const navigate = useNavigate();
-
   const [movies, setMovies] = useState([]);
 
   const getMovies = async () => {
@@ -17,12 +13,7 @@ const Movies: React.FC = () => {
   };
 
   useEffect(() => {
-    let token = getToken();
-    if (token === null) {
-      navigate("/");
-    }
     getMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movies]);
 
   return (

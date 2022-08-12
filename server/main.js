@@ -7,6 +7,7 @@ const registerAuth = require("./Routes/registerAuth");
 const authCheck = require("./Routes/authCheck");
 const usersRoute = require("./Routes/users");
 const membersRoute = require("./Routes/members");
+const susbcriptionRoute = require("./Routes/susbcription");
 const cors = require("cors");
 
 require("./Configs/mongoConfig");
@@ -18,6 +19,7 @@ app.use(cors());
 app.use("/api/movies", moviesRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/members", membersRoute);
+app.use("/api/susbcription", susbcriptionRoute);
 app.use("/api/auth/login", loginAuth);
 app.use("/api/auth/register", registerAuth);
 app.use("/api/auth/authCheck", authCheck);

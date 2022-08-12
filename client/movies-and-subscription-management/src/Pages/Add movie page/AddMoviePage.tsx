@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getToken } from "../../Services/AuthService";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { addItem } from "../../Services/requests";
@@ -7,6 +6,7 @@ import "./addMoviePage.scss";
 
 const AddMoviePage: React.FC = () => {
   const navigate = useNavigate();
+
   const [movieDetails, setMovieDetails] = useState<{
     name: string;
     imageUrl: string;
@@ -29,14 +29,6 @@ const AddMoviePage: React.FC = () => {
       alert(resp.data.message);
     }
   };
-
-  useEffect(() => {
-    let token = getToken();
-    if (token === null) {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div>

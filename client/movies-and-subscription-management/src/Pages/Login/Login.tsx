@@ -3,9 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
 import TextField from "@mui/material/TextField";
 import { login, saveToken } from "../../Services/AuthService";
+import { useDispatch } from "react-redux";
+import { LOGIN } from "../../Redux/userSlice";
+import jwt_decode from "jwt-decode";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -14,9 +18,23 @@ const Login: React.FC = () => {
     e.preventDefault();
     let resp = await login(userName, password);
     if (resp.data.error === false) {
-      let token: String = resp.data.access_token;
+      let token: string = resp.data.access_token;
       saveToken(token);
-      navigate("/home");
+      let decodedToken: any = jwt_decode(token);
+      if (decodedToken) {
+        let userDetails = decodedToken.user;
+        dispatch(
+          LOGIN({
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            sessionTimeOut: userDetails.sessionTimeOut,
+            userName: userDetails.userName,
+            permissions: userDetails.permissions,
+            isLoggedIn: true,
+          })
+        );
+      }
+      navigate("/");
     } else {
       alert(resp.data.message);
     }

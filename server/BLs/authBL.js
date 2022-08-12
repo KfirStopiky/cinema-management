@@ -49,10 +49,10 @@ const login = (req, userName, password) => {
             message: "Invalid details",
           });
         } else {
-          const access_token = jwt.sign({ id: user._id }, SECRET, {
+          const access_token = jwt.sign({ user }, SECRET, {
             expiresIn: 300,
           });
-          return resolve({ error: false, access_token, user });
+          return resolve({ error: false, access_token });
         }
       }
     } catch (error) {
