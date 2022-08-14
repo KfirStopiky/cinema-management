@@ -1,4 +1,3 @@
-const membersDAL = require("../DALs/membersDAL");
 const usersSchema = require("../Models/userModel");
 
 const getAllUsers = () => {
@@ -23,7 +22,14 @@ const getUser = (id) => {
   });
 };
 
-const editUser = (_id, firstName, lastName, sessionTimeOut, userName) => {
+const editUser = (
+  _id,
+  firstName,
+  lastName,
+  sessionTimeOut,
+  userName,
+  permissions
+) => {
   return new Promise(async (resolve, reject) => {
     try {
       let user = await usersSchema.findByIdAndUpdate(
@@ -34,6 +40,7 @@ const editUser = (_id, firstName, lastName, sessionTimeOut, userName) => {
             lastName,
             userName,
             sessionTimeOut,
+            permissions,
           },
         },
         { new: true }

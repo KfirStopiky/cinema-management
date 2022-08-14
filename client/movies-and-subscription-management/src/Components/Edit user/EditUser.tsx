@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./editUser.scss";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,9 +8,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { FormGroup } from "@mui/material";
 import { updateItem } from "../../Services/requests";
+import { useDispatch } from "react-redux";
+import { UPDATE } from "../../Redux/userSlice";
 
 interface IProps {
   open: boolean;
@@ -26,9 +26,26 @@ const EditUser: React.FC<IProps> = ({
   selectedUserDeatils,
   setTelectedUserDeatils,
 }) => {
-  const handleEdit = async (id: string, userObj: object) => {
-    let resp = await updateItem(`http://localhost:5000/api/users`, id, userObj);
+  const dispatch = useDispatch();
+
+  const [updatedPermissions, setUpdatedPermissions] = useState({
+    viewSubscriptions: selectedUserDeatils.permissions.viewSubscriptions,
+    createSubscriptions: selectedUserDeatils.permissions.createSubscriptions,
+    deleteSubscriptions: selectedUserDeatils.permissions.deleteSubscriptions,
+    updateSubscriptions: selectedUserDeatils.permissions.updateSubscriptions,
+    viewMovies: selectedUserDeatils.permissions.viewMovies,
+    createMovies: selectedUserDeatils.permissions.createMovies,
+    deleteMovies: selectedUserDeatils.permissions.deleteMovies,
+    updateMovie: selectedUserDeatils.permissions.updateMovie,
+  });
+
+  const handleEdit = async (id: string, userObj: any) => {
+    console.log(userObj.user);
+    let resp = await updateItem(`http://localhost:5000/api/users`, id, {
+      userObj,
+    });
     if (resp.data.error === true) alert(resp.data.message);
+    dispatch(UPDATE({ permissions: userObj.user.permissions }));
     alert(resp.data.message);
     setOpen(false);
   };
@@ -127,91 +144,99 @@ const EditUser: React.FC<IProps> = ({
           />
           <div>
             Permissions: <br />
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={selectedUserDeatils.permissions.viewMovies}
-                  />
-                }
-                label="View movies"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.createMovies
-                    }
-                  />
-                }
-                label="Create movies"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={selectedUserDeatils.permissions.updateMovie}
-                  />
-                }
-                label="Update movies"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.deleteMovies
-                    }
-                  />
-                }
-                label="Delete movies"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.viewSubscriptions
-                    }
-                  />
-                }
-                label="View subscriptions"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.createSubscriptions
-                    }
-                  />
-                }
-                label="Create subscriptions"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.updateSubscription
-                    }
-                  />
-                }
-                label="Update subscriptions"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={
-                      selectedUserDeatils.permissions.deleteSubscriptions
-                    }
-                  />
-                }
-                label="Delete subscriptions"
-              />
-            </FormGroup>
+            <Checkbox
+              checked={updatedPermissions.viewSubscriptions}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  viewSubscriptions: e.target.checked,
+                })
+              }
+            />
+            View Subscription
+            <br />
+            <Checkbox
+              checked={updatedPermissions.createSubscriptions}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  createSubscriptions: e.target.checked,
+                })
+              }
+            />
+            Create subscription <br />
+            <Checkbox
+              checked={updatedPermissions.deleteSubscriptions}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  deleteSubscriptions: e.target.checked,
+                })
+              }
+            />
+            Delete subscription <br />
+            <Checkbox
+              checked={updatedPermissions.updateSubscriptions}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  updateSubscriptions: e.target.checked,
+                })
+              }
+            />
+            Update subscription <br />
+            <Checkbox
+              checked={updatedPermissions.viewMovies}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  viewMovies: e.target.checked,
+                })
+              }
+            />
+            View movies <br />
+            <Checkbox
+              checked={updatedPermissions.createMovies}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  createMovies: e.target.checked,
+                })
+              }
+            />
+            Create movies <br />
+            <Checkbox
+              checked={updatedPermissions.updateMovie}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  updateMovie: e.target.checked,
+                })
+              }
+            />
+            Update movies <br />
+            <Checkbox
+              checked={updatedPermissions.deleteMovies}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUpdatedPermissions({
+                  ...updatedPermissions,
+                  deleteMovies: e.target.checked,
+                })
+              }
+            />
+            Delete movies <br />
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() =>
-              handleEdit(selectedUserDeatils._id, { user: selectedUserDeatils })
+              handleEdit(selectedUserDeatils._id, {
+                user: {
+                  ...selectedUserDeatils,
+                  permissions: updatedPermissions,
+                },
+              })
             }
           >
             Update

@@ -12,13 +12,15 @@ router.get("/:id", async (req, res, next) => {
   res.send(resp);
 });
 router.put("/:id", async (req, res, next) => {
-  const { _id,firstName, lastName, sessionTimeOut, userName } = req.body.user;
+  const { _id, firstName, lastName, sessionTimeOut, userName, permissions } =
+    req.body.userObj.user;
   let resp = await usersBL.editUser(
     _id,
     firstName,
     lastName,
     sessionTimeOut,
-    userName
+    userName,
+    permissions
   );
   res.send(resp);
 });

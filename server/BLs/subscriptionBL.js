@@ -1,10 +1,10 @@
 const subscriptionSchema = require("../Models/subscriptionsModel");
 
-const addSubscription = (MemberId) => {
-
+const addSubscription = (MemberId, Movies) => {
+  console.log(MemberId);
   return new Promise(async (resolve, reject) => {
     try {
-      let newSubscription = await new movieSchema({
+      let newSubscription = await new subscriptionSchema({
         MemberId,
         Movies,
       }).save();

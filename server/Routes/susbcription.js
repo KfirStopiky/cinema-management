@@ -12,8 +12,9 @@ const subscriptionBL = require("../BLs/subscriptionBL");
 //   res.json(resp);
 // });
 router.post("/", async (req, res, next) => {
-  const { MemberId } = req.body;
-  let resp = await subscriptionBL.addSubscription(MemberId);
+  // console.log(req.body.MemberId);
+  let { MemberId, Movies } = req.body;
+  let resp = await subscriptionBL.addSubscription(MemberId, Movies);
   res.json(resp);
 });
 

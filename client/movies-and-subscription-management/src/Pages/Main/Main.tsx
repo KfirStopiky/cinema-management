@@ -15,11 +15,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Movies from "../../Components/Movies/Movies";
 import Users from "../../Components/Users/Users";
 import AddMoviePage from "../Add movie page/AddMoviePage";
-import EditUserPage from "../Edit user page/EditUserPage";
 import SubscriptionPage from "../Subscriptions page/SubscriptionPage";
 import Members from "../../Components/Members/Members";
 import AddMemberPage from "../Add member/AddMemberPage";
-import { UserType } from "../../Types/user";
 import Unauthorized from "../../Components/Unauthorized/Unauthorized";
 import { useSelector } from "react-redux";
 import { LOGOUT, selectUser } from "../../Redux/userSlice";
@@ -89,24 +87,17 @@ const Main: React.FC = () => {
         </AppBar>
       </Box>
       <Routes>
-        {/* Public routes */}
-        <Route
-          path="/"
-          element={user ? <Home /> : <Login />}
-          // element={localStorage.getItem("token") ? <Home /> : <Login />}
-        />
+        <Route path="/" element={user.isLoggedIn ? <Home /> : <Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected routes */}
         <Route path="/manage-users" element={<UserManagement />}>
           <Route path="" element={<Users />} />
           {/* <Route  path="add" element={<AddUser />} /> */}
         </Route>
-        <Route path="/manage-users/:id" element={<EditUserPage />} />
         <Route
           path="/movies"
           element={
-            user && user.permissions.viewMovies ? (
+            user.isLoggedIn && user.permissions.viewMovies ? (
               <MoviesPage />
             ) : (
               <Unauthorized />
@@ -117,7 +108,7 @@ const Main: React.FC = () => {
           <Route
             path="add"
             element={
-              user && user.permissions.createMovies ? (
+              user.isLoggedIn && user.permissions.createMovies ? (
                 <AddMoviePage />
               ) : (
                 <Unauthorized />
