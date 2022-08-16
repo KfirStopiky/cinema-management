@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { deleteItem, getItemById } from "../../Services/requests";
 import EditMember from "../Edit member/EditMember";
+import WatchList from "../Watch list/WatchList";
 import "./member.scss";
 
 interface memberProps {
@@ -57,6 +58,7 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
             Delete
           </Button>
         </div>
+        <WatchList getMembers={getMembers} member={member} />
       </div>
     </div>
   );

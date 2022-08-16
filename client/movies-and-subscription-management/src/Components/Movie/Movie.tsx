@@ -22,10 +22,6 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
   const [open, setOpen] = React.useState(false);
   const [selectedMovieDetails, setSelectedMovieDetails] = React.useState({});
 
-  const getMovieSubscriptions = async () => {
-    let resp = await getItemById()
-  }
-
   const deleteMovie = async () => {
     await deleteItem(`http://localhost:5000/api/movies`, movie._id);
     getMovies();

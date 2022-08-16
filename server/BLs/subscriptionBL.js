@@ -15,4 +15,19 @@ const addSubscription = (MemberId, Movies) => {
   });
 };
 
-module.exports = { addSubscription };
+
+const getSubscriptionsByMovie = (movieID) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let allSubscriptions = await subscriptionSchema.find({
+        Movies: movieID,
+      });
+
+      return resolve({ error: false, allSubscriptions });
+    } catch (err) {
+      reject({ error: true, message: err });
+    }
+  });
+};
+
+module.exports = { addSubscription, getSubscriptionsByMovie };

@@ -27,7 +27,6 @@ const Members: React.FC = () => {
   }, [members]);
   return (
     <>
-      <h1>Members</h1>
       {members.map((member: MemberType) => {
         return (
           <Member key={member._id} member={member} getMembers={getMembers} />
