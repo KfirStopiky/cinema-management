@@ -24,7 +24,7 @@ const Members: React.FC = () => {
     }
     getMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [members]);
+  }, []);
   return (
     <>
       {members.map((member: MemberType) => {

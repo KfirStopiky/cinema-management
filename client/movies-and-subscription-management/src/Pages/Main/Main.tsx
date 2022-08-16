@@ -72,14 +72,16 @@ const Main: React.FC = () => {
             >
               Subscriptions
             </Typography>
-            <Typography
-              onClick={() => navigate("/manage-users")}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Users Management
-            </Typography>
+            {user.userName === "ks1" && (
+              <Typography
+                onClick={() => navigate("/manage-users")}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                Users Management
+              </Typography>
+            )}
             <Button onClick={logout} color="inherit">
               Log Out
             </Button>
@@ -90,20 +92,14 @@ const Main: React.FC = () => {
         <Route path="/" element={user.isLoggedIn ? <Home /> : <Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/manage-users" element={<UserManagement />}>
+        <Route
+          path="/manage-users"
+          element={user.isLoggedIn ? <UserManagement /> : <Login />}
+        >
           <Route path="" element={<Users />} />
           {/* <Route  path="add" element={<AddUser />} /> */}
         </Route>
-        <Route
-          path="/movies"
-          element={
-            user.isLoggedIn && user.permissions.viewMovies ? (
-              <MoviesPage />
-            ) : (
-              <Unauthorized />
-            )
-          }
-        >
+        <Route path="/movies" element={<MoviesPage />}>
           <Route path="" element={<Movies />} />
           <Route
             path="add"
@@ -116,7 +112,10 @@ const Main: React.FC = () => {
             }
           />
         </Route>
-        <Route path="/members" element={<SubscriptionPage />}>
+        <Route
+          path="/members"
+          element={user.isLoggedIn ? <SubscriptionPage /> : <Login />}
+        >
           <Route path="" element={<Members />} />
           <Route path="add" element={<AddMemberPage />} />
         </Route>

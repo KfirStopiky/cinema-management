@@ -3,4 +3,5 @@ export type MemberType = {
   Name: string;
   Email: string;
   City: string;
+  Watched_movies: any;
 };

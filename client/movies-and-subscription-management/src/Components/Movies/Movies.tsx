@@ -17,12 +17,11 @@ const Movies: React.FC = () => {
   }, [movies]);
 
   return (
-    <>
-      <h1>Movies</h1>
+    <div className="movies-container">
       {movies.map((movie: MovieType, i: number) => {
         return <Movie key={i} movie={movie} getMovies={getMovies} />;
       })}
-    </>
+    </div>
   );
 };
 

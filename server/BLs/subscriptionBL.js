@@ -1,13 +1,23 @@
 const subscriptionSchema = require("../Models/subscriptionsModel");
+const memberSchema = require("../Models/memberModel");
 
-const addSubscription = (MemberId, Movies) => {
-  console.log(MemberId);
+const addSubscription = (MemberId, movieID, movieName, watching_date) => {
   return new Promise(async (resolve, reject) => {
     try {
       let newSubscription = await new subscriptionSchema({
         MemberId,
-        Movies,
+        Movie: { movieID, movieName },
+        watching_date,
       }).save();
+      await memberSchema.findOneAndUpdate(
+        MemberId,
+        {
+          $push: {
+            Watched_movies: { movieID, movieName, watching_date: Date.now() },
+          },
+        },
+        { new: true }
+      );
       return resolve({ error: false, newSubscription });
     } catch (err) {
       reject({ error: true, message: err });
@@ -15,13 +25,13 @@ const addSubscription = (MemberId, Movies) => {
   });
 };
 
-
-const getSubscriptionsByMovie = (movieID) => {
+const getMemberSubscriptions = (MemberId) => {
   return new Promise(async (resolve, reject) => {
     try {
       let allSubscriptions = await subscriptionSchema.find({
-        Movies: movieID,
+        MemberId,
       });
+      console.log(allSubscriptions);
 
       return resolve({ error: false, allSubscriptions });
     } catch (err) {
@@ -30,4 +40,4 @@ const getSubscriptionsByMovie = (movieID) => {
   });
 };
 
-module.exports = { addSubscription, getSubscriptionsByMovie };
+module.exports = { addSubscription, getMemberSubscriptions };

@@ -11,6 +11,7 @@ interface memberProps {
     Name: string;
     Email: string;
     City: string;
+    Watched_movies: [];
   };
   getMembers: () => void;
 }
@@ -20,7 +21,6 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
   const [selectedMemberDetails, setSelectedMemberDetails] = React.useState({});
 
   const deleteMember = async () => {
-    console.log("delet member");
     await deleteItem(`http://localhost:5000/api/members`, member._id);
     getMembers();
   };
@@ -38,7 +38,8 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
   return (
     <div className="container">
       <div className="member">
-        Name:{member.Name} <br />
+        <h1>{member.Name}</h1>
+        <br />
         Email:{member.Email} <br />
         City:{member.City} <br />
         <div>

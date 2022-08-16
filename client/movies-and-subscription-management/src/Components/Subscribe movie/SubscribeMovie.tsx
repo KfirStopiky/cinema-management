@@ -9,7 +9,18 @@ import {
 import React, { useEffect, useState } from "react";
 import { addItem, getAllItems } from "../../Services/requests";
 import "./subscribeMovie.scss";
-const SubscribeMovie: React.FC = () => {
+
+interface memberProps {
+  member: {
+    _id: string;
+    Name: string;
+    Email: string;
+    City: string;
+    Watched_movies: any;
+  };
+}
+
+const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState("");
   const [date, setDate] = useState("");
@@ -29,7 +40,6 @@ const SubscribeMovie: React.FC = () => {
 
   const getMovies = async () => {
     let resp = await getAllItems("http://localhost:5000/api/movies");
-    console.log(resp.data);
     setMovies(resp.data);
   };
 
@@ -40,7 +50,10 @@ const SubscribeMovie: React.FC = () => {
   return (
     <div>
       <h1>Add a new movie</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form
+        className="login-form"
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+      >
         <TextField
           onChange={(
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,7 +84,18 @@ const SubscribeMovie: React.FC = () => {
           </Select>
         </FormControl>
 
-        <button type="submit">Subscribe</button>
+        <button
+          onClick={() =>
+            handleSubmit({
+              MemberId: member._id,
+              movieName: movie,
+              watching_date: date,
+            })
+          }
+          type="submit"
+        >
+          Subscribe
+        </button>
       </form>
     </div>
   );
