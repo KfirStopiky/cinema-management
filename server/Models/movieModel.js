@@ -5,6 +5,13 @@ const movieSchema = new mongoose.Schema({
   Genres: [{ type: String }],
   Image: String,
   Premiered: String,
+  Subscriptions_watched: [
+    {
+      memberID: String,
+      memberName: String,
+      date: Date,
+    },
+  ],
 });
 
 module.exports = mongoose.model("movies", movieSchema);

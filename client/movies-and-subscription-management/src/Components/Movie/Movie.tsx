@@ -10,6 +10,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import SubscriptionsWatched from "../Subscriptions watched/SubscriptionsWatched";
 
 interface IProps {
   movie: {
@@ -18,6 +19,7 @@ interface IProps {
     Genres: [string];
     Image: string;
     Premiered: string;
+    Subscriptions_watched: [];
   };
   getMovies: () => void;
 }
@@ -61,7 +63,9 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
           <br />
           <Typography variant="body2" color="text.secondary">
             Premiered: {movie.Premiered}
-          </Typography>
+          </Typography>{" "}
+          <br />
+          <SubscriptionsWatched movie = {movie} />
         </CardContent>
         <CardActions>
           {user && user.permissions.updateMovie ? (

@@ -26,8 +26,8 @@ app.use("/api/auth/authCheck", authCheck);
 
 app.get("/", async (req, res) => {
   try {
-    // let movies = await moviesBL.loadMoviesToDB();
-    // let members = await membersBL.loadMembersToDB();
+    // await moviesBL.loadMoviesToDB();
+    // await membersBL.loadMembersToDB();
     res.json("hello world");
   } catch (error) {
     console.log(error);

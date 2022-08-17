@@ -93,6 +93,7 @@ const editMovie = (_id, Name, Genres, Image, Premiered) => {
             Genres,
             Image,
             Premiered,
+            Subscriptions_watched: [],
           },
         },
         { new: true }

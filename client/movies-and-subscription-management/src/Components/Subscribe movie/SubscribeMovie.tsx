@@ -27,14 +27,11 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
 
   const handleSubmit = async (memberObj: any) => {
     console.log(memberObj);
-    let resp = await addItem(
-      "http://localhost:5000/api/susbcription",
-      memberObj
-    );
-    console.log(resp);
+    await addItem("http://localhost:5000/api/susbcription", memberObj);
   };
 
   const handleChange = (event: SelectChangeEvent) => {
+    console.log(event.target);
     setMovie(event.target.value);
   };
 
@@ -64,19 +61,13 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
           type="date"
         />
         <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <InputLabel id="demo-simple-select-autowidth-label">Movie</InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            value={movie}
-            onChange={handleChange}
-            autoWidth
-            label="Movie"
-          >
+          <InputLabel>Movie</InputLabel>
+          <Select value={movie} onChange={handleChange} autoWidth label="Movie">
             {movies &&
               movies.map((movie: any, i) => {
+                // console.log(movie);
                 return (
-                  <MenuItem key={i} value={movie.Name}>
+                  <MenuItem key={i} value={movie._id}>
                     {movie.Name}
                   </MenuItem>
                 );
@@ -88,7 +79,8 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
           onClick={() =>
             handleSubmit({
               MemberId: member._id,
-              movieName: movie,
+              memberName: member.Name,
+              movieID: movie,
               watching_date: date,
             })
           }

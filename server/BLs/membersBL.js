@@ -1,7 +1,6 @@
 const membersDAL = require("../DALs/membersDAL");
 const memberSchema = require("../Models/memberModel");
 
-
 const loadMembersToDB = () => {
   return new Promise(async (resolve, reject) => {
     // Get all members from WS
@@ -15,7 +14,7 @@ const loadMembersToDB = () => {
         Name: m.name,
         Email: m.email,
         City: m.address.city,
-        Watched_movies:[]
+        Watched_movies: [],
       });
       memberObj.save((err) => {
         if (err) reject(err);
@@ -54,6 +53,7 @@ const addMember = (Name, Email, City) => {
         Name,
         Email,
         City,
+        // Watched_movies: [],
       }).save();
       return resolve({ error: false, newMember });
     } catch (err) {

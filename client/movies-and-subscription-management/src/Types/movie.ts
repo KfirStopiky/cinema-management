@@ -4,4 +4,5 @@ export type MovieType = {
   Genres: [string];
   Image: string;
   Premiered: string;
+  Subscriptions_watched: [];
 };

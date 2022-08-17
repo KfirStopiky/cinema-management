@@ -10,12 +10,13 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  let { MemberId, movieID, movieName, watching_date } = req.body;
+  let { MemberId, movieID, watching_date, memberName } = req.body;
+  console.log(MemberId, movieID, watching_date, memberName);
   let resp = await subscriptionBL.addSubscription(
     MemberId,
     movieID,
-    movieName,
-    watching_date
+    watching_date,
+    memberName
   );
   res.json(resp);
 });
