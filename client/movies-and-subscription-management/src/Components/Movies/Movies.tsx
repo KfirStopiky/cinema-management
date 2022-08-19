@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -42,13 +43,34 @@ const Movies: React.FC = () => {
         noValidate
         autoComplete="off"
       >
-        <TextField id="standard-basic" label="Standard" variant="standard" />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          id="standard-basic"
+          label="Search a movie"
+          variant="standard"
+        />
       </Box>
       <div className="movies-container">
+        {movies
+          // eslint-disable-next-line array-callback-return
+          .filter((val: any) => {
+            if (val === "") {
+              return val;
+            } else if (
+              val.Name.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return val;
+            }
+          })
+          .map((movie: MovieType, i: number) => {
+            return <Movie key={i} movie={movie} getMovies={getMovies} />;
+          })}
+      </div>
+      {/* <div className="movies-container">
         {movies.map((movie: MovieType, i: number) => {
           return <Movie key={i} movie={movie} getMovies={getMovies} />;
         })}
-      </div>
+      </div> */}
     </>
   );
 };

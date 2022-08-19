@@ -22,7 +22,7 @@ const SubscriptionsWatched: React.FC<IProps> = ({ movie }) => {
             return (
               <ul key={i}>
                 <li>
-                  {s.memberName} , {s.date}
+                  {s.memberName},{s.date}
                 </li>
               </ul>
             );

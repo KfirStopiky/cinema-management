@@ -12,6 +12,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import SubscriptionsWatched from "../Subscriptions watched/SubscriptionsWatched";
 
+
 interface IProps {
   movie: {
     _id: string;

@@ -36,58 +36,60 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              onClick={() => navigate("/")}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Home
-            </Typography>
-            <Typography
-              onClick={() => navigate("/movies")}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Movies
-            </Typography>
-            <Typography
-              onClick={() => navigate("/members")}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Subscriptions
-            </Typography>
-            {user.userName === "ks1" && (
+      {user.isLoggedIn && (
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
               <Typography
-                onClick={() => navigate("/manage-users")}
+                onClick={() => navigate("/")}
                 variant="h6"
                 component="div"
                 sx={{ flexGrow: 1 }}
               >
-                Users Management
+                Home
               </Typography>
-            )}
-            <Button onClick={logout} color="inherit">
-              Log Out
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
+              <Typography
+                onClick={() => navigate("/movies")}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                Movies
+              </Typography>
+              <Typography
+                onClick={() => navigate("/members")}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                Subscriptions
+              </Typography>
+              {user.userName === "ks1" && (
+                <Typography
+                  onClick={() => navigate("/manage-users")}
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                >
+                  Users Management
+                </Typography>
+              )}
+              <Button onClick={logout} color="inherit">
+                Log Out
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      )}
       <Routes>
         <Route path="/" element={user.isLoggedIn ? <Home /> : <Login />} />
         <Route path="/register" element={<Register />} />
