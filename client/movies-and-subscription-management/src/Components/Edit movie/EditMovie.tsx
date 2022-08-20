@@ -38,6 +38,7 @@ const EditMovie: React.FC<IProps> = ({
     selectedMovieDetails.Genres.map((genre: string) => {
       return genresArr.push(genre);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

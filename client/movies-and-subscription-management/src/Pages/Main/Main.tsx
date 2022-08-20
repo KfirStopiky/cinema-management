@@ -10,8 +10,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Movies from "../../Components/Movies/Movies";
 import Users from "../../Components/Users/Users";
 import AddMoviePage from "../Add movie page/AddMoviePage";
@@ -23,6 +21,7 @@ import { useSelector } from "react-redux";
 import { LOGOUT, selectUser } from "../../Redux/userSlice";
 import { useDispatch } from "react-redux";
 import MoviesPage from "../Movies page/MoviesPage";
+import "./main.scss";
 
 const Main: React.FC = () => {
   const user = useSelector(selectUser);
@@ -40,16 +39,8 @@ const Main: React.FC = () => {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
               <Typography
+                className="nav-link-item"
                 onClick={() => navigate("/")}
                 variant="h6"
                 component="div"
@@ -58,6 +49,7 @@ const Main: React.FC = () => {
                 Home
               </Typography>
               <Typography
+                className="nav-link-item"
                 onClick={() => navigate("/movies")}
                 variant="h6"
                 component="div"
@@ -66,6 +58,7 @@ const Main: React.FC = () => {
                 Movies
               </Typography>
               <Typography
+                className="nav-link-item"
                 onClick={() => navigate("/members")}
                 variant="h6"
                 component="div"
@@ -75,6 +68,7 @@ const Main: React.FC = () => {
               </Typography>
               {user.userName === "ks1" && (
                 <Typography
+                  className="nav-link-item"
                   onClick={() => navigate("/manage-users")}
                   variant="h6"
                   component="div"

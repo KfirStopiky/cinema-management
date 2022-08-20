@@ -26,7 +26,6 @@ const Movies: React.FC = () => {
 
   return (
     <>
-      <h1>Movies</h1>
       <Stack spacing={2} direction="row">
         <Button onClick={() => navigate("/movies")} variant="contained">
           All Movies

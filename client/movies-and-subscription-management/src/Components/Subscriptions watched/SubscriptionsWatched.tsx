@@ -1,5 +1,6 @@
 import React from "react";
 import "./subscriptionsWatched.scss";
+import moment from "moment";
 
 interface IProps {
   movie: {
@@ -22,7 +23,8 @@ const SubscriptionsWatched: React.FC<IProps> = ({ movie }) => {
             return (
               <ul key={i}>
                 <li>
-                  {s.memberName},{s.date}
+                  {s.memberName},
+                  {moment(`${s.date}`).utc().format("DD/MM/YYYY")}
                 </li>
               </ul>
             );

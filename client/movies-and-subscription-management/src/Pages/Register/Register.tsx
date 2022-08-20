@@ -71,7 +71,7 @@ const Register: React.FC = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box
             component="form"
@@ -145,8 +145,8 @@ const Register: React.FC = () => {
               Sign Up
             </Button>
             <Grid container>
-              <Grid item>
-                <Link to={"/"}>{"Back to sign in"}</Link>
+              <Grid  item>
+                <Link  to={"/"}>{"Back to sign in"}</Link>
               </Grid>
             </Grid>
           </Box>

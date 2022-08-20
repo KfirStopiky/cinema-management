@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./watchList.scss";
 import SubscribeMovie from "../Subscribe movie/SubscribeMovie";
 import { getItemById } from "../../Services/requests";
+import moment from "moment";
 
 interface memberProps {
   member: {
@@ -40,7 +41,9 @@ const WatchList: React.FC<memberProps> = ({ member }) => {
             <ol key={movie._id}>
               <a href="/">{movie.movieName}</a>
               <br />
-              <p>{movie.watching_date}</p>
+              <p>
+                {moment(`${movie.watching_date}`).utc().format("DD/MM/YYYY")}
+              </p>
             </ol>
           );
         })}

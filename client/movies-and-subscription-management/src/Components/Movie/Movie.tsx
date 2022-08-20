@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import SubscriptionsWatched from "../Subscriptions watched/SubscriptionsWatched";
-
+import moment from "moment";
 
 interface IProps {
   movie: {
@@ -48,7 +48,7 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
   return (
     <div className="container">
       <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
+        <CardMedia className="card-media"
           component="img"
           height="140"
           image={movie.Image}
@@ -63,10 +63,10 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
           </Typography>
           <br />
           <Typography variant="body2" color="text.secondary">
-            Premiered: {movie.Premiered}
-          </Typography>{" "}
+            Premiered: {moment(`${movie.Premiered}`).utc().format("DD/MM/YYYY")}
+          </Typography>
           <br />
-          <SubscriptionsWatched movie = {movie} />
+          <SubscriptionsWatched movie={movie} />
         </CardContent>
         <CardActions>
           {user && user.permissions.updateMovie ? (

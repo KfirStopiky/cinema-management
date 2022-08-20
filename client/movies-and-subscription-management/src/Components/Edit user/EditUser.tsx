@@ -5,28 +5,40 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
 import { updateItem } from "../../Services/requests";
 import { useDispatch } from "react-redux";
 import { UPDATE } from "../../Redux/userSlice";
+import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import moment from "moment";
+
+export interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 interface IProps {
-  open: boolean;
+  isOpen: boolean;
+  setIsopen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedUserDeatils: any;
   setTelectedUserDeatils: React.Dispatch<React.SetStateAction<{}>>;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleClose: () => void;
 }
 
 const EditUser: React.FC<IProps> = ({
-  open,
-  setOpen,
+  isOpen,
+  setIsopen,
   selectedUserDeatils,
   setTelectedUserDeatils,
 }) => {
   const dispatch = useDispatch();
+  const [state, setState] = React.useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal, open } = state;
 
   const [updatedPermissions, setUpdatedPermissions] = useState({
     viewSubscriptions: selectedUserDeatils.permissions.viewSubscriptions,
@@ -39,27 +51,32 @@ const EditUser: React.FC<IProps> = ({
     updateMovie: selectedUserDeatils.permissions.updateMovie,
   });
 
+  const handleCloseSnackbar = () => {
+    setState({ ...state, open: false });
+  };
+
   const handleEdit = async (id: string, userObj: any) => {
-    console.log(userObj.user);
     let resp = await updateItem(`http://localhost:5000/api/users`, id, {
       userObj,
     });
     if (resp.data.error === true) alert(resp.data.message);
     dispatch(UPDATE({ permissions: userObj.user.permissions }));
-    alert(resp.data.message);
-    setOpen(false);
+    setState({ ...state, open: true });
+    // alert(resp.data.message);
+    setTimeout(() => {
+      setIsopen(false);
+    }, 1500);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsopen(false);
   };
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={isOpen} onClose={handleClose}>
         <DialogTitle>Edit user</DialogTitle>
         <DialogContent>
-          <DialogContentText>Edit user</DialogContentText>
           <TextField
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -133,7 +150,9 @@ const EditUser: React.FC<IProps> = ({
             variant="standard"
           />
           <TextField
-            defaultValue={selectedUserDeatils.createdAt}
+            defaultValue={moment(`${selectedUserDeatils.createdAt}`)
+              .utc()
+              .format("DD/MM/YYYY")}
             autoFocus
             margin="dense"
             id="creation"
@@ -243,6 +262,15 @@ const EditUser: React.FC<IProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
+      <div>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleCloseSnackbar}
+          message="User has been edited successfully"
+          key={vertical + horizontal}
+        />
+      </div>
     </div>
   );
 };

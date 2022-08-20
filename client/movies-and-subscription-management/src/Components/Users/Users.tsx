@@ -13,13 +13,13 @@ const Users: React.FC = () => {
     setUsers(users);
   };
 
+
+
   useEffect(() => {
     getUsers();
   }, []);
   return (
     <>
-      <h1>Users</h1>
-
       {users &&
         users.map((user: UserType, i: number) => {
           return (

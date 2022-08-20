@@ -3,6 +3,11 @@ import "./user.scss";
 import { deleteItem, getItemById } from "../../Services/requests";
 import Button from "@mui/material/Button";
 import EditUser from "../Edit user/EditUser";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import moment from "moment";
+
 interface IProps {
   user: {
     _id: string;
@@ -31,17 +36,17 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
     permissionsArr.push(String(perm) + ",");
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [isOpen, setIsopen] = React.useState(false);
   const [selectedUserDeatils, setTelectedUserDeatils] = React.useState({});
 
   const editUser = async (id: string) => {
     let resp = await getItemById(`http://localhost:5000/api/users`, id);
     setTelectedUserDeatils(resp.data.user);
-    setOpen(true);
+    setIsopen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsopen(false);
   };
 
   const deleteUser = async () => {
@@ -52,33 +57,73 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
   return (
     <>
       <div className="user">
-        First name:{user.firstName} <br />
-        Last name:{user.lastName} <br />
-        User name:{user.userName} <br />
-        Permissions:
-        {permissionsArr}
-        <br />
-        Session time out(minutes): {user.sessionTimeOut} <br />
-        Creation time: {user.updatedAt} <br />
-        <div className="btns">
-          <div>
-            <Button variant="outlined" onClick={() => editUser(user._id)}>
-              Edit
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              First name: {user.firstName}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Last name: {user.lastName}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              User name: {user.userName}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Session time out: {user.sessionTimeOut}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Creation date:
+              {moment(`${user.updatedAt}`).utc().format("DD/MM/YYYY")}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Permissions: {permissionsArr}
+            </Typography>
+          </CardContent>
+
+          <div className="btns">
+            <div>
+              <Button variant="outlined" onClick={() => editUser(user._id)}>
+                Edit
+              </Button>
+              {isOpen && (
+                <EditUser
+                  isOpen={isOpen}
+                  setIsopen={setIsopen}
+                  handleClose={handleClose}
+                  selectedUserDeatils={selectedUserDeatils}
+                  setTelectedUserDeatils={setTelectedUserDeatils}
+                />
+              )}
+            </div>
+            <Button variant="outlined" onClick={deleteUser}>
+              Delete
             </Button>
-            {open && (
-              <EditUser
-                open={open}
-                setOpen={setOpen}
-                handleClose={handleClose}
-                selectedUserDeatils={selectedUserDeatils}
-                setTelectedUserDeatils={setTelectedUserDeatils}
-              />
-            )}
           </div>
-          <Button variant="outlined" onClick={deleteUser}>
-            Delete
-          </Button>
-        </div>
+        </Card>
       </div>
     </>
   );
