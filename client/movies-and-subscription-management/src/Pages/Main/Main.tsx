@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Login from "../Login/Login";
 import { Routes, Route } from "react-router-dom";
 import Register from "../Register/Register";
-import Home from "../Home page/Home";
 import UserManagement from "../Users Management Page/UserManagement";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -22,12 +21,35 @@ import { LOGOUT, selectUser } from "../../Redux/userSlice";
 import { useDispatch } from "react-redux";
 import MoviesPage from "../Movies page/MoviesPage";
 import "./main.scss";
+import { Container } from "@mui/system";
+import AdbIcon from "@mui/icons-material/Adb";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+const pages = ["Movies", "Subscriptions", "Users-Management"];
 
 const Main: React.FC = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = (tabName: string) => {
+    console.log("handleCloseNavMenu");
+    navigate(tabName);
+
+    setAnchorElNav(null);
+  };
+
   const logout = () => {
+    console.log("logout");
     dispatch(LOGOUT());
   };
 
@@ -35,67 +57,119 @@ const Main: React.FC = () => {
 
   return (
     <>
-      {user.isLoggedIn && (
-        <Box sx={{ flexGrow: 1 }}>
+      <div className="navbar">
+        {user.isLoggedIn && (
           <AppBar position="static">
-            <Toolbar>
-              <Typography
-                className="nav-link-item"
-                onClick={() => navigate("/")}
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1 }}
-              >
-                Home
-              </Typography>
-              <Typography
-                className="nav-link-item"
-                onClick={() => navigate("/movies")}
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1 }}
-              >
-                Movies
-              </Typography>
-              <Typography
-                className="nav-link-item"
-                onClick={() => navigate("/members")}
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1 }}
-              >
-                Subscriptions
-              </Typography>
-              {user.userName === "ks1" && (
+            <Container maxWidth="xl">
+              <Toolbar disableGutters>
+                <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
                 <Typography
-                  className="nav-link-item"
-                  onClick={() => navigate("/manage-users")}
+                  onClick={() => navigate("/movies")}
                   variant="h6"
-                  component="div"
-                  sx={{ flexGrow: 1 }}
+                  noWrap
+                  component="a"
+                  sx={{
+                    mr: 2,
+                    display: { xs: "none", md: "flex" },
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
                 >
-                  Users Management
+                  LOGO
                 </Typography>
-              )}
-              <Button onClick={logout} color="inherit">
-                Log Out
-              </Button>
-            </Toolbar>
+
+                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleOpenNavMenu}
+                    color="inherit"
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorElNav}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                    }}
+                  >
+                    {pages.map((page) => (
+                      <MenuItem
+                        key={page}
+                        onClick={() => handleCloseNavMenu(page)}
+                      >
+                        <Typography textAlign="center">{page}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+                <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+                <Typography
+                  variant="h5"
+                  noWrap
+                  component="a"
+                  onClick={() => navigate("/movies")}
+                  sx={{
+                    mr: 2,
+                    display: { xs: "flex", md: "none" },
+                    flexGrow: 1,
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
+                >
+                  LOGO
+                </Typography>
+                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                  {pages.map((page) => (
+                    <Button
+                      key={page}
+                      onClick={() => handleCloseNavMenu(page)}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page}
+                    </Button>
+                  ))}
+                </Box>
+                <LogoutIcon onClick={() => logout()} />
+              </Toolbar>
+            </Container>
           </AppBar>
-        </Box>
-      )}
+        )}
+      </div>
+
       <Routes>
-        <Route path="/" element={user.isLoggedIn ? <Home /> : <Login />} />
         <Route path="/register" element={<Register />} />
 
         <Route
-          path="/manage-users"
+          path="/Users-Management"
           element={user.isLoggedIn ? <UserManagement /> : <Login />}
         >
           <Route path="" element={<Users />} />
-          {/* <Route  path="add" element={<AddUser />} /> */}
         </Route>
-        <Route path="/movies" element={<MoviesPage />}>
+        <Route
+          path="/movies"
+          element={user.isLoggedIn ? <MoviesPage /> : <Login />}
+        >
           <Route path="" element={<Movies />} />
           <Route
             path="add"
@@ -109,7 +183,7 @@ const Main: React.FC = () => {
           />
         </Route>
         <Route
-          path="/members"
+          path="/Subscriptions"
           element={user.isLoggedIn ? <SubscriptionPage /> : <Login />}
         >
           <Route path="" element={<Members />} />

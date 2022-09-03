@@ -3,6 +3,7 @@ import "./watchList.scss";
 import SubscribeMovie from "../Subscribe movie/SubscribeMovie";
 import { getItemById } from "../../Services/requests";
 import moment from "moment";
+import { Button } from "@mui/material";
 
 interface memberProps {
   member: {
@@ -30,25 +31,33 @@ const WatchList: React.FC<memberProps> = ({ member }) => {
   useEffect(() => {
     getWatchedMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchedMovies]);
+  }, []);
 
   return (
-    <div className="container">
-      <h1>Movies Watched</h1>
-      {watchedMovies &&
-        watchedMovies.map((movie: any) => {
-          return (
-            <ol key={movie._id}>
-              <a href="/">{movie.movieName}</a>
-              <br />
-              <p>
-                {moment(`${movie.watching_date}`).utc().format("DD/MM/YYYY")}
-              </p>
-            </ol>
-          );
-        })}
-
-      <button onClick={() => setOpen(!open)}>Subscribe to a new movie</button>
+    <div className="watch-list-container">
+      <h1 className="header">Movies Watched</h1>
+      <div className="watch-list-items">
+        {watchedMovies
+          ? watchedMovies.map((movie: any) => {
+              return (
+                <ol key={movie._id}>
+                  <a href="/movies">{movie.movieName}</a>
+                  <br />
+                  <p>
+                    {moment(`${movie.watching_date}`)
+                      .utc()
+                      .format("DD/MM/YYYY")}
+                  </p>
+                </ol>
+              );
+            })
+          : "No Movies"}
+      </div>
+      <div className="subscribe-btn">
+        <Button variant="contained" onClick={() => setOpen(!open)}>
+          Subscribe to a new movie
+        </Button>
+      </div>
       {open && <SubscribeMovie member={member} />}
     </div>
   );

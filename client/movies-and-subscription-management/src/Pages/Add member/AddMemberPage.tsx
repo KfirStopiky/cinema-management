@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { getToken } from "../../Services/AuthService";
 import { addItem } from "../../Services/requests";
 import TextField from "@mui/material/TextField";
+import "./addMember.scss";
 
 const AddMemberPage: React.FC = () => {
   const navigate = useNavigate();
@@ -40,8 +41,8 @@ const AddMemberPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className="container">
+    <>
+      <div className="add-member-container">
         <form className="login-form" onSubmit={handleSubmit}>
           <TextField
             onChange={(
@@ -80,7 +81,7 @@ const AddMemberPage: React.FC = () => {
           <button type="submit">Save</button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

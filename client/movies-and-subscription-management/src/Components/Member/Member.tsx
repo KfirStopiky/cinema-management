@@ -3,12 +3,13 @@ import { deleteItem, getItemById } from "../../Services/requests";
 import EditMember from "../Edit member/EditMember";
 import WatchList from "../Watch list/WatchList";
 import "./member.scss";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeSharpIcon from "@mui/icons-material/ModeSharp";
 
 interface memberProps {
   member: {
@@ -53,18 +54,30 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             City: {member.City}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            adjective
-          </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={() => editMember(member._id)} size="small">
-            Edit
-          </Button>
-          <Button onClick={deleteMember} size="small">
-            Delete
-          </Button>
+          <div className="member-buttons-container">
+            <Button
+              onClick={() => editMember(member._id)}
+              variant="outlined"
+              startIcon={<ModeSharpIcon />}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={deleteMember}
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
+          </div>
         </CardActions>
+        <CardContent>
+          <div className="member">
+            <WatchList getMembers={getMembers} member={member} />
+          </div>
+        </CardContent>
       </Card>
       {open && (
         <EditMember
@@ -75,9 +88,6 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
           setSelectedMemberDetails={setSelectedMemberDetails}
         />
       )}
-      <div className="member">
-        <WatchList getMembers={getMembers} member={member} />
-      </div>
     </div>
   );
 };

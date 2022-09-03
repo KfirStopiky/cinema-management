@@ -27,11 +27,13 @@ const Members: React.FC = () => {
   }, []);
   return (
     <>
-      {members.map((member: MemberType) => {
-        return (
-          <Member key={member._id} member={member} getMembers={getMembers} />
-        );
-      })}
+      <div className="members-container">
+        {members.map((member: MemberType) => {
+          return (
+            <Member key={member._id} member={member} getMembers={getMembers} />
+          );
+        })}
+      </div>
     </>
   );
 };

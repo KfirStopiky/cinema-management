@@ -1,0 +1,15 @@
+.subscriptions-page-container{
+    width: 100&;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(215, 220, 188);
+}
+.btns-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.page{
+    background-color: rgb(215, 220, 188);
+}

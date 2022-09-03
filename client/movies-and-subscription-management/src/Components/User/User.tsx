@@ -7,6 +7,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import moment from "moment";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeSharpIcon from "@mui/icons-material/ModeSharp";
 
 interface IProps {
   user: {
@@ -58,7 +60,7 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
     <>
       <div className="user">
         <Card sx={{ minWidth: 275 }}>
-          <CardContent>
+          <CardContent className="card-content">
             <Typography
               sx={{ fontSize: 14 }}
               color="text.secondary"
@@ -104,9 +106,13 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
             </Typography>
           </CardContent>
 
-          <div className="btns">
+          <div className="buttons-container">
             <div>
-              <Button variant="outlined" onClick={() => editUser(user._id)}>
+              <Button
+                onClick={() => editUser(user._id)}
+                variant="outlined"
+                startIcon={<ModeSharpIcon />}
+              >
                 Edit
               </Button>
               {isOpen && (
@@ -119,7 +125,11 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
                 />
               )}
             </div>
-            <Button variant="outlined" onClick={deleteUser}>
+            <Button
+              onClick={deleteUser}
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+            >
               Delete
             </Button>
           </div>

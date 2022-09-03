@@ -1,3 +1,4 @@
+import { Button, Stack } from "@mui/material";
 import React from "react";
 import { Outlet, useNavigate } from "react-router";
 import "./subscriptionPage.scss";
@@ -6,13 +7,26 @@ const SubscriptionPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>Subscriptions</h1>
-      <div className="btns">
-        <button onClick={() => navigate("/members")}>All members</button>
-        <button onClick={() => navigate("/members/add")}>Add member</button>
+    <div className="subscriptions-page-container">
+      <div className="btns-container">
+        <Stack spacing={2} direction="row">
+          <Button
+            onClick={() => navigate("/subscriptions")}
+            variant="contained"
+          >
+            All members
+          </Button>
+          <Button
+            onClick={() => navigate("/subscriptions/add")}
+            variant="outlined"
+          >
+            Add member
+          </Button>
+        </Stack>
       </div>
-      <Outlet />
+      <div className="page">
+        <Outlet />
+      </div>
     </div>
   );
 };

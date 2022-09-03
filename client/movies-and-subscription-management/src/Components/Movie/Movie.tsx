@@ -12,7 +12,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import SubscriptionsWatched from "../Subscriptions watched/SubscriptionsWatched";
 import moment from "moment";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeSharpIcon from "@mui/icons-material/ModeSharp";
 interface IProps {
   movie: {
     _id: string;
@@ -48,7 +49,8 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
   return (
     <div className="container">
       <Card sx={{ maxWidth: 345 }}>
-        <CardMedia className="card-media"
+        <CardMedia
+          className="card-media"
           component="img"
           height="140"
           image={movie.Image}
@@ -68,12 +70,12 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
           <br />
           <SubscriptionsWatched movie={movie} />
         </CardContent>
-        <CardActions>
+        <CardActions className="buttons-container">
           {user && user.permissions.updateMovie ? (
             <Button
-              size="small"
-              variant="outlined"
               onClick={() => editMovie(movie._id)}
+              variant="outlined"
+              startIcon={<ModeSharpIcon />}
             >
               Edit
             </Button>
@@ -81,10 +83,17 @@ const Movie: React.FC<IProps> = ({ movie, getMovies }) => {
             ""
           )}
           {user && user.permissions.deleteMovies ? (
-            <Button size="small" onClick={deleteMovie} variant="outlined">
+            <Button
+              onClick={deleteMovie}
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+            >
               Delete
             </Button>
           ) : (
+            // <Button size="small" onClick={deleteMovie} variant="outlined">
+            //   Delete
+            // </Button>
             ""
           )}
         </CardActions>

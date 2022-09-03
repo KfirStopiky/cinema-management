@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -46,9 +47,9 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
 
   return (
     <div>
-      <h1>Add a new movie</h1>
+      <h1 className="header">Add a new movie</h1>
       <form
-        className="login-form"
+        className="movie-subscription-form"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
       >
         <TextField
@@ -56,7 +57,6 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
           ) => setDate(e.target.value)}
           id="outlined-basic"
-          label="Username"
           variant="outlined"
           type="date"
         />
@@ -65,7 +65,6 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
           <Select value={movie} onChange={handleChange} autoWidth label="Movie">
             {movies &&
               movies.map((movie: any, i) => {
-                // console.log(movie);
                 return (
                   <MenuItem key={i} value={movie._id}>
                     {movie.Name}
@@ -74,8 +73,10 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
               })}
           </Select>
         </FormControl>
-
-        <button
+      </form>
+      <div className="subscribe-btn">
+        <Button
+          variant="contained"
           onClick={() =>
             handleSubmit({
               MemberId: member._id,
@@ -87,8 +88,8 @@ const SubscribeMovie: React.FC<memberProps> = ({ member }) => {
           type="submit"
         >
           Subscribe
-        </button>
-      </form>
+        </Button>
+      </div>
     </div>
   );
 };

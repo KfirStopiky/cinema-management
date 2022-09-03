@@ -1,6 +1,43 @@
-.nav-link-item{
+
+.navbar{
+    height: 15vh;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8rem;
+    padding: 0 2rem;
+    background-color: #29335C;
+    color: #eee;
+}
+nav button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
     cursor: pointer;
-    // &:hover{
-    //     scale: 1.1;
-    // }
+    overflow: hidden;
+    outline: none;
+    margin: 0 2rem;
+    &:hover{
+        color: #db2b39;
+    }
+}
+header .nav-btn{
+    padding: 0.5rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #eee;
+    visibility: hidden;
+    opacity: 0;
+}
+.active{
+  background-color: #359fa290;
+}
+
+@media only screen and(max-width:1024px){
+  
+
 }

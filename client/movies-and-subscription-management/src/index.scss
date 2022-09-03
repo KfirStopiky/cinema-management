@@ -20,4 +20,9 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
-
+html,
+body,
+#app,
+#app>div {
+  height: 100%
+}

@@ -15,14 +15,11 @@ const UserManagement: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="container">
-      <div className="btns">
+    <div className="user-management-container">
+      <div className="user-management-btn">
         <Stack spacing={2} direction="row">
           <Button onClick={() => navigate("/manage-users")} variant="contained">
             All Users
-          </Button>
-          <Button onClick={() => navigate("/add")} variant="outlined">
-            Add User
           </Button>
         </Stack>
       </div>

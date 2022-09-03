@@ -3,9 +3,19 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { addItem } from "../../Services/requests";
 import "./addMoviePage.scss";
+import {
+  Box,
+  Button,
+  Container,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 
 const AddMoviePage: React.FC = () => {
   const navigate = useNavigate();
+  const theme = createTheme();
 
   const [movieDetails, setMovieDetails] = useState<{
     name: string;
@@ -31,58 +41,113 @@ const AddMoviePage: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, name: e.target.value })}
-            id="name"
-            label="name"
-            variant="outlined"
-          />
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, genres: e.target.value })}
-            id="genres"
-            label="genres"
-            variant="outlined"
-          />{" "}
-          <br />
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setMovieDetails({ ...movieDetails, imageUrl: e.target.value })}
-            id="imageUrl"
-            label="imageUrl"
-            variant="outlined"
-          />{" "}
-          <br />
-          <TextField
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) =>
-              setMovieDetails({ ...movieDetails, premiered: e.target.value })
-            }
-            id="premiered"
-            label="premiered"
-            variant="outlined"
-          />{" "}
-          <br />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(-1);
+    <>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Go back
-          </button>
-          <button type="submit">Save</button>
-        </form>
-      </div>
-    </div>
+            <Typography component="h1" variant="h5">
+              Add new movie
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) => setMovieDetails({ ...movieDetails, name: e.target.value })}
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoFocus
+              />
+              <TextField
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) =>
+                  setMovieDetails({ ...movieDetails, genres: e.target.value })
+                }
+                margin="normal"
+                required
+                fullWidth
+                name="genres"
+                label="Genres"
+                type="text"
+                id="genres"
+              />
+              <TextField
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) =>
+                  setMovieDetails({ ...movieDetails, imageUrl: e.target.value })
+                }
+                margin="normal"
+                required
+                fullWidth
+                name="imageUrl"
+                label="Image url"
+                type="text"
+                id="imageUrl"
+              />
+              <TextField
+                onChange={(
+                  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                ) =>
+                  setMovieDetails({
+                    ...movieDetails,
+                    premiered: e.target.value,
+                  })
+                }
+                margin="normal"
+                required
+                fullWidth
+                name="premiered"
+                label="Premiered"
+                type="date"
+                id="premiered"
+              />
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(-1);
+                }}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Back
+              </Button>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(-1);
+                }}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Add
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </>
   );
 };
 

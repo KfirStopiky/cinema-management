@@ -13,24 +13,24 @@ const Users: React.FC = () => {
     setUsers(users);
   };
 
-
-
   useEffect(() => {
     getUsers();
   }, []);
   return (
     <>
-      {users &&
-        users.map((user: UserType, i: number) => {
-          return (
-            <User
-              key={i}
-              user={user}
-              permissions={user.permissions}
-              getUsers={getUsers}
-            />
-          );
-        })}
+      <div className="users-container">
+        {users &&
+          users.map((user: UserType, i: number) => {
+            return (
+              <User
+                key={i}
+                user={user}
+                permissions={user.permissions}
+                getUsers={getUsers}
+              />
+            );
+          })}
+      </div>
     </>
   );
 };

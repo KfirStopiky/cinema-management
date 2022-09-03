@@ -1,0 +1,10 @@
+.movies-page-container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(215, 220, 188);
+}
+.btns-container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}

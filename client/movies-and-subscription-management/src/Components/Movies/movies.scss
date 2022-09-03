@@ -1,7 +1,12 @@
-.movies-container{
-    margin: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+ .movies-container {
+   margin: 2rem;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+ }
+.search-input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

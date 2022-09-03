@@ -67,7 +67,7 @@ const Login: React.FC = () => {
           })
         );
       }
-      navigate("/");
+      navigate("/movies");
     } else {
       alert(resp.data.message);
     }
