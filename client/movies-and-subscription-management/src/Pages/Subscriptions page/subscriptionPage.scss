@@ -1,6 +1,4 @@
 .subscriptions-page-container{
-    width: 100&;
-    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgb(215, 220, 188);
@@ -11,5 +9,8 @@
     align-items: center;
 }
 .page{
+    width: 100%;
+    height: 100%;
+    border: 1px solid blue($color: #000000);
     background-color: rgb(215, 220, 188);
 }

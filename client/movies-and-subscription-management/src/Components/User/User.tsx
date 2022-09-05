@@ -58,7 +58,7 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
 
   return (
     <>
-      <div className="user">
+      <div className="user-container">
         <Card sx={{ minWidth: 275 }}>
           <CardContent className="card-content">
             <Typography
@@ -97,7 +97,7 @@ const User: React.FC<IProps> = ({ user, getUsers, permissions }) => {
               Creation date:
               {moment(`${user.updatedAt}`).utc().format("DD/MM/YYYY")}
             </Typography>
-            <Typography
+            <Typography className="permissions-field"
               sx={{ fontSize: 14 }}
               color="text.secondary"
               gutterBottom

@@ -29,10 +29,9 @@ const AddMoviePage: React.FC = () => {
     genres: [],
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any, movieDetails: any) => {
     e.preventDefault();
     let resp = await addItem("http://localhost:5000/api/movies", movieDetails);
-    console.log(movieDetails);
     if (resp.data.error === false) {
       navigate("/movies");
     } else {
@@ -58,7 +57,7 @@ const AddMoviePage: React.FC = () => {
             </Typography>
             <Box
               component="form"
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               noValidate
               sx={{ mt: 1 }}
             >
@@ -133,8 +132,7 @@ const AddMoviePage: React.FC = () => {
               </Button>
               <Button
                 onClick={(e) => {
-                  e.preventDefault();
-                  navigate(-1);
+                  handleSubmit(e, movieDetails);
                 }}
                 type="submit"
                 fullWidth

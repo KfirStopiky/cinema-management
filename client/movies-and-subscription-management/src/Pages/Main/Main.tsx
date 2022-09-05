@@ -64,6 +64,7 @@ const Main: React.FC = () => {
               <Toolbar disableGutters>
                 <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
                 <Typography
+                  className="logo"
                   onClick={() => navigate("/movies")}
                   variant="h6"
                   noWrap
@@ -78,7 +79,7 @@ const Main: React.FC = () => {
                     textDecoration: "none",
                   }}
                 >
-                  LOGO
+                  HOME
                 </Typography>
 
                 <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -122,6 +123,7 @@ const Main: React.FC = () => {
                 </Box>
                 <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
                 <Typography
+                  className="logo"
                   variant="h5"
                   noWrap
                   component="a"
@@ -137,7 +139,7 @@ const Main: React.FC = () => {
                     textDecoration: "none",
                   }}
                 >
-                  LOGO
+                  HOME
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                   {pages.map((page) => (

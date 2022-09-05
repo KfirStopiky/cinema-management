@@ -58,6 +58,7 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
         <CardActions>
           <div className="member-buttons-container">
             <Button
+              className="member-btn"
               onClick={() => editMember(member._id)}
               variant="outlined"
               startIcon={<ModeSharpIcon />}
@@ -65,6 +66,7 @@ const Member: React.FC<memberProps> = ({ member, getMembers }) => {
               Edit
             </Button>
             <Button
+              className="member-btn"
               onClick={deleteMember}
               variant="outlined"
               startIcon={<DeleteIcon />}

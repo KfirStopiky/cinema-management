@@ -1,9 +1,10 @@
 .container{
     margin: 1.3rem;
-    // &:hover{
-    //     scale: 1.11;
-    //     cursor: pointer;
-    // }
+    transition: scale .8s ;
+    &:hover{
+        scale: 1.11;
+        cursor: pointer;
+    }
 
 }
 .buttons-container{
